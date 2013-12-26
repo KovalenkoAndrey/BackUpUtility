@@ -1,0 +1,8 @@
+C:\Users\SHRIDHAR\Documents\Visual Studio 2012\Projects\BackUp\BackUp\bin\x86\Debug\BackUp.exe.config
+C:\Users\SHRIDHAR\Documents\Visual Studio 2012\Projects\BackUp\BackUp\bin\x86\Debug\BackUp.exe
+C:\Users\SHRIDHAR\Documents\Visual Studio 2012\Projects\BackUp\BackUp\bin\x86\Debug\BackUp.pdb
+C:\Users\SHRIDHAR\Documents\Visual Studio 2012\Projects\BackUp\BackUp\obj\x86\Debug\BackUp.Form1.resources
+C:\Users\SHRIDHAR\Documents\Visual Studio 2012\Projects\BackUp\BackUp\obj\x86\Debug\BackUp.Properties.Resources.resources
+C:\Users\SHRIDHAR\Documents\Visual Studio 2012\Projects\BackUp\BackUp\obj\x86\Debug\BackUp.csproj.GenerateResource.Cache
+C:\Users\SHRIDHAR\Documents\Visual Studio 2012\Projects\BackUp\BackUp\obj\x86\Debug\BackUp.exe
+C:\Users\SHRIDHAR\Documents\Visual Studio 2012\Projects\BackUp\BackUp\obj\x86\Debug\BackUp.pdb
