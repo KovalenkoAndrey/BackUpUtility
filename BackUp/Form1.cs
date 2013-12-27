@@ -13,15 +13,34 @@ namespace BackUp
 {
     public partial class Form1 : Form
     {
+        String logFileName = null;
+        Boolean LOG_ENABLED = true;
+        FileWrite file;
         public Form1()
         {
             InitializeComponent();
             Console.WriteLine("64-bit process = {0}", Environment.Is64BitProcess);
             Console.WriteLine(System.Reflection.Assembly.GetExecutingAssembly().CodeBase);
+            
+
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if (LOG_ENABLED)
+            {
+                String ApplicationDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                String MyNewPath = System.IO.Path.Combine(ApplicationDataPath, "BackUp-Utility-Log");
+
+                if (!Directory.Exists(MyNewPath))
+                {
+                    Directory.CreateDirectory(MyNewPath);
+                    Console.WriteLine(MyNewPath);
+                }
+                logFileName = MyNewPath + "\\BackUp-Utility-Log_" + System.DateTime.Now.ToFileTime() + ".txt";
+                file = new FileWrite(logFileName);
+            }
+
             if (!Directory.Exists(textBox2.Text))
             {
                 Directory.CreateDirectory(textBox2.Text);
@@ -57,9 +76,6 @@ namespace BackUp
                 Directory.CreateDirectory(srcPath.Replace(textBox1.Text, textBox2.Text));
                 processFiles(srcPath, srcPath.Replace(textBox1.Text, textBox2.Text));
             }
-
-
-
             Console.WriteLine(srcPath);
             Console.WriteLine(srcPath.Replace(textBox1.Text, textBox2.Text));
 
@@ -98,7 +114,6 @@ namespace BackUp
 
         }
 
-
         private void copyChangedFiles(String srcDirName, String[] srcFileNames, String destDirName, String[] destFileNames)
         {
             String[] sCopyFiles = null;
@@ -112,6 +127,7 @@ namespace BackUp
                     System.IO.File.Copy(srcDirName + path, destDirName + path);
                 }
             }
+            file.writeLog(sCopyFiles, srcDirName, destDirName, "Replace Updated Files");
 
         }
 
@@ -123,9 +139,8 @@ namespace BackUp
             foreach (String path in sCopyFiles)
             {
                 System.IO.File.Delete(destDirName + path);
-
             }
-
+            file.writeLog(sCopyFiles, destDirName, "Remove Deleted Files");
         }
 
         private void copyNewFiles(String srcDirName, String[] srcFileNames, String destDirName, String[] destFileNames)
@@ -136,7 +151,9 @@ namespace BackUp
             foreach (String path in sCopyFiles)
             {
                 System.IO.File.Copy(srcDirName + path, destDirName + path);
+
             }
+            file.writeLog(sCopyFiles, srcDirName, destDirName, "Copy New Files");
         }
 
         private String[] getFileNames(String directoryName)
@@ -151,10 +168,6 @@ namespace BackUp
             return sActualFileName.ToArray<String>();
 
         }
-
-       
-
-      
 
         private void textBox1_Enter(object sender, EventArgs e)
         {
@@ -202,7 +215,14 @@ namespace BackUp
             }
         }
 
-        
+      
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            
+        }
+
+
+
 
     }
 }

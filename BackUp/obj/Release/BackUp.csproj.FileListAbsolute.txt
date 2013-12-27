@@ -6,3 +6,4 @@ C:\Users\SHRIDHAR\Documents\Visual Studio 2012\Projects\BackUp\BackUp\obj\Releas
 C:\Users\SHRIDHAR\Documents\Visual Studio 2012\Projects\BackUp\BackUp\obj\Release\BackUp.csproj.GenerateResource.Cache
 C:\Users\SHRIDHAR\Documents\Visual Studio 2012\Projects\BackUp\BackUp\obj\Release\BackUp.exe
 C:\Users\SHRIDHAR\Documents\Visual Studio 2012\Projects\BackUp\BackUp\obj\Release\BackUp.pdb
+C:\Users\SHRIDHAR\Documents\Visual Studio 2012\Projects\BackUp\BackUp\obj\Release\BackUp.csprojResolveAssemblyReference.cache

@@ -1,0 +1,7 @@
+Windows Registry Editor Version 5.00
+ 
+ [HKEY_CLASSES_ROOT\Directory\shell\Command]
+ @="BackUp"
+ 
+ [HKEY_CLASSES_ROOT\Directory\shell\Command\Command]
+ @="C:\Users\SHRIDHAR\Documents\Visual Studio 2012\Projects\BackUp\BackUp\bin\Release\BackUp.exe"
