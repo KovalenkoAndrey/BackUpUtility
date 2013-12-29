@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Timers;
 
 namespace BackUp
 {
@@ -16,16 +17,31 @@ namespace BackUp
         String logFileName = null;
         Boolean LOG_ENABLED = true;
         FileWrite file;
+        int timer = 0;
+        private static System.Timers.Timer aTimer;
         public Form1()
         {
             InitializeComponent();
             Console.WriteLine("64-bit process = {0}", Environment.Is64BitProcess);
             Console.WriteLine(System.Reflection.Assembly.GetExecutingAssembly().CodeBase);
+            aTimer = new System.Timers.Timer(10000);
+
+                   
+                    // Set the Interval to 1 seconds (1000 milliseconds).
+                   // aTimer.Interval = timer *1000 ;
+                    aTimer.Enabled = false;
+
+                
             
 
         }
 
         private void button1_Click(object sender, EventArgs e)
+        {
+            process();
+        }
+
+        private void process()
         {
             if (LOG_ENABLED)
             {
@@ -51,8 +67,13 @@ namespace BackUp
             ProcessDirectory(textBox1.Text);
             processFiles(textBox1.Text, textBox2.Text);
 
-
-            MessageBox.Show("Backup completed successfully!!", "BackUp - Utility - v 0.1");
+            label3.Text = "BackUp Completed";
+            label3.Refresh();
+            //MessageBox.Show("Backup completed successfully!!", "BackUp - Utility - v 0.1");
+            if (checkBox1.Checked)
+            {
+                System.Windows.Forms.Application.Exit();
+            }
         }
 
         private void ProcessDirectory(String srcPath)
@@ -123,8 +144,11 @@ namespace BackUp
             {
                 if (!Directory.GetLastWriteTimeUtc(srcDirName + path).Equals(Directory.GetLastWriteTimeUtc(destDirName + path)))
                 {
+                    label3.Text = "Replace Updated Files Operation in progress\r\n" + srcDirName + path;
+                    label3.Refresh();
                     System.IO.File.Delete(destDirName + path);
                     System.IO.File.Copy(srcDirName + path, destDirName + path);
+                    
                 }
             }
             file.writeLog(sCopyFiles, srcDirName, destDirName, "Replace Updated Files");
@@ -138,9 +162,13 @@ namespace BackUp
 
             foreach (String path in sCopyFiles)
             {
+                label3.Text = "Delete removed files \r\n" + destDirName + path;
+                label3.Refresh();
                 System.IO.File.Delete(destDirName + path);
+                
             }
             file.writeLog(sCopyFiles, destDirName, "Remove Deleted Files");
+
         }
 
         private void copyNewFiles(String srcDirName, String[] srcFileNames, String destDirName, String[] destFileNames)
@@ -150,8 +178,10 @@ namespace BackUp
 
             foreach (String path in sCopyFiles)
             {
+                label3.Text = "Copying new files \r\n" + destDirName + path;
+                label3.Refresh();
                 System.IO.File.Copy(srcDirName + path, destDirName + path);
-
+                
             }
             file.writeLog(sCopyFiles, srcDirName, destDirName, "Copy New Files");
         }
@@ -221,6 +251,26 @@ namespace BackUp
             
         }
 
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
+            object Item = comboBox1.SelectedItem;
+            aTimer.Enabled = true;
+            
+            aTimer.Interval = Convert.ToDouble(Item) * 1000*60;
+            
+            // Hook up the Elapsed event for the timer.
+            aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
+
+            
+        }
+
+        private void OnTimedEvent(object source, ElapsedEventArgs e)
+        {
+            process();
+        }
+
+       
 
 
 

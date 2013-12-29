@@ -7,3 +7,7 @@ C:\Users\SHRIDHAR\Documents\Visual Studio 2012\Projects\BackUp\BackUp\obj\Releas
 C:\Users\SHRIDHAR\Documents\Visual Studio 2012\Projects\BackUp\BackUp\obj\Release\BackUp.exe
 C:\Users\SHRIDHAR\Documents\Visual Studio 2012\Projects\BackUp\BackUp\obj\Release\BackUp.pdb
 C:\Users\SHRIDHAR\Documents\Visual Studio 2012\Projects\BackUp\BackUp\obj\Release\BackUp.csprojResolveAssemblyReference.cache
+C:\Users\SHRIDHAR\documents\visual studio 2012\Projects\BackUp\BackUp\bin\Release\System.Drawing.dll
+C:\Users\SHRIDHAR\documents\visual studio 2012\Projects\BackUp\BackUp\bin\Release\System.Windows.Forms.dll
+C:\Users\SHRIDHAR\documents\visual studio 2012\Projects\BackUp\BackUp\bin\Release\System.Data.dll
+C:\Users\SHRIDHAR\documents\visual studio 2012\Projects\BackUp\BackUp\bin\Release\System.dll

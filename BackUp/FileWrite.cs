@@ -9,8 +9,8 @@ namespace BackUp
 
     class FileWrite
     {
-        public String FileName
-        {
+        public String FileName;
+        /*{
             set
             {
                 this.FileName = value;
@@ -20,7 +20,7 @@ namespace BackUp
                 return this.FileName;
             }
         }
-
+        */
         public FileWrite(String FileName)
         {
             this.FileName = FileName;
