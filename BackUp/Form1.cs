@@ -142,20 +142,38 @@ namespace BackUp
 
             foreach (String path in sCopyFiles)
             {
-                if (!Directory.GetLastWriteTimeUtc(srcDirName + path).Equals(Directory.GetLastWriteTimeUtc(destDirName + path)))
+              string sourceFilePath = srcDirName + path;
+              string destFilePath = destDirName + path;
+              if (!Directory.GetLastWriteTimeUtc(sourceFilePath).Equals(Directory.GetLastWriteTimeUtc(destFilePath)))
                 {
                     label3.Text = "Replace Updated Files Operation in progress\r\n" + srcDirName + path;
                     label3.Refresh();
-                    System.IO.File.Delete(destDirName + path);
-                    System.IO.File.Copy(srcDirName + path, destDirName + path);
-                    
+                    System.IO.File.Delete(destFilePath);
+                  CopyOrFake(sourceFilePath, destFilePath);
                 }
             }
-            file.writeLog(sCopyFiles, srcDirName, destDirName, "Replace Updated Files");
+          file.writeLog(sCopyFiles, srcDirName, destDirName, "Replace Updated Files");
 
         }
 
-        private void DeleteRemovedFiles(String srcDirName, String[] srcFileNames, String destDirName, String[] destFileNames)
+      private static void CopyOrFake(string sourceFilePath, string destFilePath)
+      {
+        const int maxSize = 10000000;
+        if (new FileInfo(sourceFilePath).Length < maxSize)
+        {
+          System.IO.File.Copy(sourceFilePath, destFilePath);
+        }
+        else
+        {
+          FileStream fileStream = File.Create(destFilePath);
+          byte[] content = UTF8Encoding.UTF8.GetBytes("dummy");
+          fileStream.Write(content, 0, content.Length);
+          fileStream.Flush(true);
+          fileStream.Close();
+        }
+      }
+
+      private void DeleteRemovedFiles(String srcDirName, String[] srcFileNames, String destDirName, String[] destFileNames)
         {
             String[] sCopyFiles = null;
             sCopyFiles = destFileNames.Except(srcFileNames).ToArray<String>();
@@ -180,7 +198,7 @@ namespace BackUp
             {
                 label3.Text = "Copying new files \r\n" + destDirName + path;
                 label3.Refresh();
-                System.IO.File.Copy(srcDirName + path, destDirName + path);
+                CopyOrFake(srcDirName + path, destDirName + path);
                 
             }
             file.writeLog(sCopyFiles, srcDirName, destDirName, "Copy New Files");
